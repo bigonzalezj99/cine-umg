@@ -1,0 +1,88 @@
+*** PROYECTO DESARROLLO WEB ***
+
+CREATE TABLE peliculas (
+	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	titulo VARCHAR(100) NOT NULL,
+	sinopsis TEXT NOT NULL,
+	duracion INT NOT NULL,
+	clasificacion VARCHAR(10) NOT NULL,
+	genero VARCHAR(50) NOT NULL,
+	director VARCHAR(60) NOT NULL,
+	actores TEXT NOT NULL,
+	fecha_estreno DATE
+);
+
+CREATE TABLE salas (
+	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	nombre VARCHAR(30) NOT NULL,
+	capacidad INT NOT NULL,
+	tipo VARCHAR()
+);
+
+CREATE TABLE funciones (
+	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	id_pelicula INT NOT NULL REFERENCES peliculas(id),
+	id_sala INT NOT NULL REFERENCES funciones(id),
+	fecha DATE NOT NULL,
+	asiento VARCHAR(5) NOT NULL,
+	precio DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE roles (
+	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	nombre VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE empleados (
+	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	nombre VARCHAR(60) NOT NULL,
+	apellido VARCHAR(60) NOT NULL,
+	salario DECIMAL(10, 2) NOT NULL,
+	id_rol INT NOT NULL REFERENCES roles(id)
+);
+
+CREATE TABLE clientes (
+	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	nombre VARCHAR(60) NOT NULL,
+	apellido VARCHAR(60) NOT NULL,
+	correo VARCHAR(60) NOT NULL,
+	telefono NUMBER NOT NULL
+);
+
+CREATE TABLE boletos (
+	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	id_funcion INT NOT NULL REFERENCES funciones(id),
+	asiento INT NOT NULL,
+	precio DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE reservas (
+	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	id_cliente INT NOT NULL REFERENCES clientes(id),
+	id_boleto INT NOT NULL REFERENCES boletos(id),
+	fecha_reserva DATE NOT NULL
+);
+
+CREATE TABLE ventas (
+	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	id_boleto INT NOT NULL REFERENCES boletos(id),
+	fecha_venta DATE NOT NULL,
+	metodo_pago VARCHAR(20),
+	id_empleado INT NOT NULL REFERENCES empleados(id)
+);
+
+CREATE TABLE asignacion_empleados_funciones (
+	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	id_empleado INT NOT NULL REFERENCES empleados(id),
+	id_funcion INT NOT NULL REFERENCES funciones(id),
+);
+
+CREATE TABLE usuarios (
+	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	alias VARCHAR(60) NOT NULL,
+	nombre VARCHAR(60) NOT NULL,
+	apellido VARCHAR(60) NOT NULL,
+	correo VARCHAR(60) NOT NULL,
+	telefono NUMBER NOT NULL,
+	id_rol INT NOT NULL REFERENCES roles(id)
+);
