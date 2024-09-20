@@ -1,0 +1,38 @@
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build output
+/dist
+/build
+/public/static
+
+# Environment variables
+.env
+
+# Logs
+logs
+*.log
+pids
+*.pid
+*.seed
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Uploads directory
+/backend/uploads/
+
+# IDEs
+/.idea
+/.vscode
+*.sublime-project
+*.sublime-workspace
+
+# MacOS files
+*.DS_Store
+
+# Windows files
+Thumbs.db
